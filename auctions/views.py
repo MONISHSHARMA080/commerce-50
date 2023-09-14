@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from .models import User,Listings,Category
 
 
@@ -63,9 +63,11 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-
+@login_required(login_url='auctions/login.html')
 def new(request):
     if request.method == "GET":
-        return render(request, "auctions/new.html")
+        categories = Category.objects.all()
+        return render(request, "auctions/new.html" , {"categories":categories})
     else:
+        ""
         pass 
