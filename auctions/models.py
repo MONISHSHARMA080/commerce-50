@@ -20,6 +20,7 @@ class Listings(models.Model):
     imageUrl = models.URLField()
     date_created = models.DateField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,  blank=False)
+    price = models.FloatField(max_length=10, blank=False)
 
 
     def __str__(self):
