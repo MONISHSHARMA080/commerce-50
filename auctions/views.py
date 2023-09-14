@@ -69,5 +69,17 @@ def new(request):
         categories = Category.objects.all()
         return render(request, "auctions/new.html" , {"categories":categories})
     else:
-        ""
-        pass 
+        #user posted to this route
+        name = request.POST["title"]
+        description = request.POST["description"]
+        image_url = request.POST["image_url"]
+        price = request.POST["price"]
+        category = request.POST["category"]
+        category_of_listing = Category.objects.get(name=category)
+        user = request.user
+        if not image_url:
+            listing = Listings( owner=user ,title=name , description=description ,price=price, category=category_of_listing)
+        else:
+            listing = Listings( owner=user  ,title=name , description=description ,imageUrl=image_url , price=price, category=category_of_listing)
+        listing.save()
+        return HttpResponseRedirect(reverse("index"))         
