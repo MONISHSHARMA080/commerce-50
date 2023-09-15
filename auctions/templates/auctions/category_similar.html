@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings  </h2>
+    <br>
+     {% for listing in listings %}
+     <div class="card" style="width: 18rem;">
+        <picture>
+            <img src="{{listing.imageUrl}}" class="img-fluid  alt="...">
+        </picture>
+        
+            <div class="card-body">
+                <h4 class="card-title">{{listing.name}}</h4>
+                <p class="card-text">{{listing.description}}.</p>
+                
+                <h6>{{listing.price}}</h6>                
+                <a href="{url 'listing' id={{listing.id}}}" class="btn btn-primary">Check out</a>
+            </div>
+    </div>       
+     {% endfor %}
+   
+{% endblock %}

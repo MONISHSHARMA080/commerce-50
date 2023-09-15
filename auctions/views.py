@@ -83,3 +83,15 @@ def new(request):
             listing = Listings( owner=user  ,title=name , description=description ,imageUrl=image_url , price=price, category=category_of_listing)
         listing.save()
         return HttpResponseRedirect(reverse("index"))         
+
+
+def category(request):
+    categories = Category.objects.all()
+    return render(request, "auctions/category.html" , {"categories":categories})
+
+def category_similar(request, name):
+    if request.method == "POST":
+        name = request.POST['name']
+        listings = Listings.objects.filter(category=name)
+        return render(request, "auctions/category_similar.html" , {"listings":listings})
+

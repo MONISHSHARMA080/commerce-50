@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+  <ol>
+    {% for category in categories %}
+
+       
+        <li><a href="{% url 'category_similar' name={{category.name}} %}">{{category.name}}</a></li>        
+
+    {% endfor %}
+
+  </ol>
+
+{% endblock %}
