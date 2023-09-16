@@ -3,30 +3,19 @@
 {% block title %}
     {{listing.name}}
 {% endblock %}
-    
-    {% if user.is_authenticated %}
-        {% if listing.id == watchlist.listing.id %}
-           <form action="{% url 'watchlist' %}" method="POST">
-                <input type="hidden" name="remove" value="remove">
-                <button type="submit">remove from watchlist</button>
-           </form>
-        {% else %}
-        <form action="{% url 'watchlist' %}" method="POST">
-            <input type="hidden" name="add" value="add" >
-            <button type="submit">remove from watchlist</button>
-        </form>
-        
-        {% endif %}
-    {% endif %}
 
-    <h4 class="card-title">{{listing.name}}</h4>
-    <p style="background-color: rgb(138, 53, 117);">{{listing.category}}</p>
-    <img src="{{listing.imageUrl}" class="img-fluid" alt="{{listing.name}}">
-    <h5>{{listing.price}}</h5>
-    <br><br><br>
-    <p>{{listing.description}}</p>
-    <br><br>
-    <h6>{{listing.title}} is created by {{listing.user}} on {{listing.time}}  </h6>
+{% block body %}
+    <div style="background-color: rgb(53, 105, 65);">
+   
+        <h4 class="card-title" style="color: white">{{listing.name}}</h4>
+        <p style="color: white">Categor: {{listing.category}}</p>
+        <img src="{{listing.imageUrl}}" alt="{{listing.name}}">
+        <h5 style="color: white">{{listing.price}}</h5>
+        <br><br>
+        <p style="font-weight: 900; color: white ;">{{listing.description}}</p>
+        <br><br>
+        <h6 style="color: white">{{listing.title}} is created by {{listing.user}} on {{listing.time}}  </h6>
 
+    </div>
 
 {% endblock %}

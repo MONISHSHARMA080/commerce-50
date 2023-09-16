@@ -14,7 +14,7 @@
                 <p class="card-text">{{listing.description}}.</p>
                 
                 <h6>{{listing.price}}</h6>                
-                <a href="{url 'listing' id=listing.id"} class="btn btn-primary">Check out</a>
+                <a href="{% url 'listing' id=listing.id %}" class="btn btn-primary">Check out</a>
             </div>
     </div>       
      {% endfor %}
