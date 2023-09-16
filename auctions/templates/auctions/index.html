@@ -1,7 +1,12 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings  </h2>
+
+{% if request.path == "/watchlist/" %}
+<h2> Watchlist</h2>
+{% else %}
+<h2>Active Listings  </h2>
+{% endif %}
     <br>
      {% for listing in listings %}
      <div class="card" style="width: 18rem;">
@@ -18,5 +23,4 @@
             </div>
     </div>       
      {% endfor %}
-   
 {% endblock %}
