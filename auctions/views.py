@@ -1,3 +1,7 @@
+#commerce_new/commerce
+#python manage.py runserver
+
+
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -94,3 +98,7 @@ def category_similar(request, name):
         listings = Listings.objects.filter(category=cateory)
         return render(request, "auctions/category_similar.html" , {"listings":listings})
 
+
+def listing(request, id):
+    listing = Listings.objects.get(id=id)
+    return render(request, "auctions/listing.html" , {"listing":listing})
