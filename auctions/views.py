@@ -1,5 +1,6 @@
 #commerce_new/commerce
 #python manage.py runserver
+# git commit -am " "
 
 
 from django.contrib.auth import authenticate, login, logout
@@ -109,5 +110,8 @@ def watchlist(request):
     listings = user.l_watchlist.all()
     return render(request, "auctions/index.html", {"listings":listings})
 
-def addWatchlist(request):
-    pass
+def addToWatchlist(request,id):
+    user = request.user
+    listing = Listings.objects.get(id=id)
+    listing.watchlist.add(user)
+    return HttpResponseRedirect(reverse(watchlist))
