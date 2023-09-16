@@ -90,8 +90,7 @@ def category(request):
     return render(request, "auctions/category.html" , {"categories":categories})
 
 def category_similar(request, name):
-    if request.method == "POST":
-        name = request.POST['name']
-        listings = Listings.objects.filter(category=name)
+        cateory = Category.objects.get(name=name)
+        listings = Listings.objects.filter(category=cateory)
         return render(request, "auctions/category_similar.html" , {"listings":listings})
 
