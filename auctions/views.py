@@ -108,3 +108,6 @@ def watchlist(request):
     user = User.objects.get(id=request.user.id)
     listings = user.l_watchlist.all()
     return render(request, "auctions/index.html", {"listings":listings})
+
+def addWatchlist(request):
+    pass
