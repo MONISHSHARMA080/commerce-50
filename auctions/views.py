@@ -115,4 +115,4 @@ def addToWatchlist(request,id):
     user = request.user
     listing = Listings.objects.get(pk=id)
     listing.watchlist.add(user)
-    return HttpResponseRedirect(reverse(listing ,id=id))
+    return HttpResponseRedirect(reverse(watchlist))
