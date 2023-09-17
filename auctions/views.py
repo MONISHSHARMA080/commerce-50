@@ -108,6 +108,7 @@ def listing(request, id):
     bids = Bid.objects.filter(listing=id) 
     return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst ,
                                                       "comments":comments , "bids":bids})
+        #in listing make sure to filter through high to low, and atleast backed validation for bid is greater than highest bid
 
 @login_required(login_url='auctions/login.html')
 def watchlist(request):
@@ -138,3 +139,16 @@ def comment(request):
         C = Comment(author=author, product=product , comment=comment)
         C.save()
         return HttpResponseRedirect(reverse(listing, args=Id))
+
+
+def make_bid(request):
+    if request.method == "POST":
+        bid = request.POST['bid']
+        owner = request.user
+        listing_id = request.POST['listing_id']
+        listing = Listings.objects.get(pk=listing_id)
+        new_bid = Bid(owner=owner, listing=listing, bid=bid)
+        new_bid.save()
+        return HttpResponseRedirect(reverse('listing', args=[listing.id]))
+
+        #in listing make sure to filter through high to low, and atleast backed validation for bid is greater than highest bid
