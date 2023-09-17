@@ -33,15 +33,20 @@
     </div>
 
 
-<div style="margin: 20px;">
-  <h4 style="color: rgb(219 39 119);">Comments:</h4>
-</div>
-
-
 <!--bidings-->
-{% for bid in bids %}
 
-<h1>A bid of ${{bid.bid}} was made by {{bid.owner}}</h1>
+
+<!--tailwind component-->
+<div class="flex flex-col">
+  <h1 style="color: rgb(231, 20, 196);">Bids:</h1>
+  {% for bid in bids %}
+  <div  style="border: 10px solid; border-image: linear-gradient(to right, purple-700, pink-500) 1; background-color: black;">
+    <div style="border-radius: 40px; padding: 14px;	background-color: rgb(38 41 48);">
+      <h2>Bid: ${{bid.bid}}</h2>
+      <h6>A bid of ${{bid.bid}} was made by {{bid.owner}} on {{bid.origin}} </h6>
+    </div>
+  </div>
+</div>
 
 
 {% endfor %}
@@ -62,6 +67,11 @@
 
 
 <!--comments-->
+
+
+<div style="margin: 20px;">
+  <h4 style="color: rgb(219 39 119);">Comments:</h4>
+</div>
 
 <!--comments (display)-->
 <div class="row d-flex justify-content-center">
