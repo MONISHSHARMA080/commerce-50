@@ -1,6 +1,7 @@
 #commerce_new/commerce
 #python manage.py runserver
 # git commit -am " "
+# git push origin main
 
 
 from django.contrib.auth import authenticate, login, logout

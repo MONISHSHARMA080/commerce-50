@@ -8,19 +8,46 @@
 <h2>Active Listings  </h2>
 {% endif %}
     <br>
-     {% for listing in listings %}
-     <div class="card" style="width: 18rem;">
+
+    <!--if on watchlist page then card layout-->
+ {% if request.path == "/watchlist/" %} 
+
+ <div class="row mx-3 d-flex flex-row" style="width: 70rem;">
+    {% for listing in listings %}
+      <div class="col-md-4">
         <picture>
-            <img src="{{listing.imageUrl}}" class="img-fluid  alt="...">
+          <img src="{{listing.imageUrl}}" class="img-fluid alt="...">
         </picture>
-        
-            <div class="card-body">
-                <h4 class="card-title">{{listing.title}}</h4>
-                <p class="card-text">{{listing.description}}.</p>
-                
-                <h6>{{listing.price}}</h6>                
-                <a href="{% url 'listing' id=listing.id %}" class="btn btn-primary">Check out</a>
-            </div>
-    </div>       
-     {% endfor %}
+  
+        <div class="card-body">
+          <h4 class="card-title">{{listing.title}}</h4>
+          <p class="card-text">{{listing.description}}.</p>
+  
+          <h6>{{listing.price}}</h6>
+  
+          <a href="{% url 'listing' id=listing.id %}" class="btn btn-primary">Check out</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>           
+    
+ {% elif request.path == "/" %}
+ 
+
+    {% for listing in listings %}
+        <div class="card" style="width: 18rem;">
+            <picture>
+                <img src="{{listing.imageUrl}}" class="img-fluid  alt="...">
+            </picture>
+            
+                <div class="card-body">
+                    <h4 class="card-title">{{listing.title}}</h4>
+                    <p class="card-text">{{listing.description}}.</p>
+                    
+                    <h6>{{listing.price}}</h6>                
+                    <a href="{% url 'listing' id=listing.id %}" class="btn btn-primary">Check out</a>
+                </div>
+        </div>       
+        {% endfor %}
+{% endif %}
 {% endblock %}
