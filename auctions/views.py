@@ -106,18 +106,20 @@ def listing(request, id):
     listing_watchlst = listing.watchlist.filter(id=request.user.id).exists()
     return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst})
 
-
+@login_required(login_url='auctions/login.html')
 def watchlist(request):
     user = User.objects.get(id=request.user.id)
     listings = user.l_watchlist.all()
     return render(request, "auctions/index.html", {"listings":listings})
-
+    
+@login_required(login_url='auctions/login.html')
 def addToWatchlist(request,id):
     user = request.user
     listing = Listings.objects.get(pk=id)
     listing.watchlist.add(user)
     return HttpResponseRedirect(reverse(watchlist))
-
+    
+@login_required(login_url='auctions/login.html')
 def removeWatchlist(request, id):
      user = request.user
      listing = Listings.objects.get(pk=id)
