@@ -1,5 +1,5 @@
-#commerce_new/commerce
-#python manage.py runserver
+# 
+# python manage.py runserver
 # git commit -am ""
 # git push origin main
 
