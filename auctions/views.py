@@ -134,5 +134,5 @@ def comment(request):
         product = Listings.objects.get(pk=Id)
         author = request.user
         C = Comment(author=author, product=product , comment=comment)
-        C.save
+        C.save()
         return HttpResponseRedirect(reverse(listing, args=Id))
