@@ -25,7 +25,7 @@
     <div style="background-color: rgb(53, 105, 65);" style="display: flex; flex-wrap: wrap; border-radius: 40px;">        
             <h5 style="color: white">Categor: {{listing.category}}</h5>
             <img src="{{listing.imageUrl}}" alt="{{listing.name}}" style="border-radius: 40px;">
-            <h5 style="color: white">{{listing.price}}</h5>
+            <h5 style="color: white"> Price: ${{listing.price}}</h5>
             <br><br>
             <p style="font-weight: 900; color: white ;">{{listing.description}}</p>
             <br><br>
@@ -38,9 +38,30 @@
 </div>
 
 
-<!--comments-->
-<!--comments add-->
+<!--bidings-->
+{% for bid in bids %}
 
+<h1>A bid of ${{bid.bid}} was made by {{bid.owner}}</h1>
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--comments-->
 
 <!--comments (display)-->
 <div class="row d-flex justify-content-center">
@@ -49,6 +70,7 @@
       <div class="card-body p-4" >
 
  <div class="form-outline mb-4">
+  <!--comments add-->
    <form action="{% url 'add_comment' %}" method="post">
       {% csrf_token %} 
       <input name="comment"  type="text"  class="form-control" placeholder="Comment..." />
@@ -60,7 +82,7 @@
 
   {% for comment in comments %}
         <div class="card mb-4">
-          <div class="card-body" style="padding: 50px;">
+          <div class="card-body" style="padding: 40px;">
             <h4>{{comment.comment}}</h4>
 
             <div class="d-flex justify-content-between">

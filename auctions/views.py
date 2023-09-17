@@ -1,4 +1,4 @@
-# 
+# cd commerce_new/commerce 
 # python manage.py runserver
 # git commit -am ""
 # git push origin main
@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .models import User,Listings,Category,Comment
+from .models import User,Listings,Category,Comment,Bid
 
 
 def index(request):
@@ -105,7 +105,9 @@ def listing(request, id):
     listing = Listings.objects.get(id=id)
     listing_watchlst = listing.watchlist.filter(id=request.user.id).exists()
     comments = Comment.objects.filter(product=listing)
-    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst , "comments":comments })
+    bids = Bid.objects.filter(listing=id) 
+    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst ,
+                                                      "comments":comments , "bids":bids})
 
 @login_required(login_url='auctions/login.html')
 def watchlist(request):
