@@ -104,8 +104,8 @@ def category_similar(request, name):
 def listing(request, id):
     listing = Listings.objects.get(id=id)
     listing_watchlst = listing.watchlist.filter(id=request.user.id).exists()
-    comments = Comment.objects.all()
-    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst} , "comments":comments)
+    comments = Comment.objects.filter(product=listing)
+    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst , "comments":comments })
 
 @login_required(login_url='auctions/login.html')
 def watchlist(request):
@@ -126,3 +126,13 @@ def removeWatchlist(request, id):
      listing = Listings.objects.get(pk=id)
      listing.watchlist.remove(user)
      return HttpResponseRedirect(reverse(watchlist))
+
+def comment(request):
+    if request.method == "POST":
+        comment = request.POST['comment']
+        Id = request.POST['id']
+        product = Listings.objects.get(pk=Id)
+        author = request.user
+        C = Comment(author=author, product=product , comment=comment)
+        C.save
+        return HttpResponseRedirect(reverse(listing, args=Id))
