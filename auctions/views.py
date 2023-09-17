@@ -103,7 +103,8 @@ def category_similar(request, name):
 
 def listing(request, id):
     listing = Listings.objects.get(id=id)
-    return render(request, "auctions/listing.html" , {"listing":listing})
+    listing_watchlst = listing.watchlist.filter(id=request.user.id).exists()
+    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst})
 
 
 def watchlist(request):
@@ -116,3 +117,6 @@ def addToWatchlist(request,id):
     listing = Listings.objects.get(pk=id)
     listing.watchlist.add(user)
     return HttpResponseRedirect(reverse(watchlist))
+
+def removeWatchlist(request, id):
+    pass
