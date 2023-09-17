@@ -1,6 +1,6 @@
 #commerce_new/commerce
 #python manage.py runserver
-# git commit -am " "
+# git commit -am ""
 # git push origin main
 
 
@@ -119,4 +119,8 @@ def addToWatchlist(request,id):
     return HttpResponseRedirect(reverse(watchlist))
 
 def removeWatchlist(request, id):
-    pass
+     user = request.user
+     listing = Listings.objects.get(pk=id)
+     listing.watchlist.remove(user)
+     return HttpResponseRedirect(reverse(watchlist))
+
