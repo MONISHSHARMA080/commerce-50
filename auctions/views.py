@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .models import User,Listings,Category
+from .models import User,Listings,Category,Comment
 
 
 def index(request):
@@ -104,7 +104,8 @@ def category_similar(request, name):
 def listing(request, id):
     listing = Listings.objects.get(id=id)
     listing_watchlst = listing.watchlist.filter(id=request.user.id).exists()
-    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst})
+    comments = Comment.objects.all()
+    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst} , "comments":comments)
 
 @login_required(login_url='auctions/login.html')
 def watchlist(request):
@@ -125,4 +126,3 @@ def removeWatchlist(request, id):
      listing = Listings.objects.get(pk=id)
      listing.watchlist.remove(user)
      return HttpResponseRedirect(reverse(watchlist))
-

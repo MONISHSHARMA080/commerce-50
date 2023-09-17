@@ -26,3 +26,11 @@ class Listings(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True) 
+    comment = models.CharField(max_length=400)
+    product = models.ForeignKey(Listings, on_delete=models.CASCADE, blank=True, null=True)    
+
+    def __str__(self):
+        return f"{self.author} on {self.product}"
