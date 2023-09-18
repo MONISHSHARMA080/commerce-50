@@ -11,6 +11,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import User,Listings,Category,Comment,Bid
+from django.core.exceptions import PermissionDenied
 
 
 def index(request):
@@ -105,9 +106,10 @@ def listing(request, id):
     listing = Listings.objects.get(id=id)
     listing_watchlst = listing.watchlist.filter(id=request.user.id).exists()
     comments = Comment.objects.filter(product=listing)
-    bids = Bid.objects.filter(listing=id) 
-    return render(request, "auctions/listing.html" , {"listing":listing , "exists":listing_watchlst ,
-                                                      "comments":comments , "bids":bids})
+    bids = Bid.objects.filter(listing=id).order_by('-bid')
+    largest_bid = Bid.objects.filter(listing=id).order_by('-bid').first()
+    min_bid = largest_bid.bid 
+    return render(request, "auctions/listing.html", {"listing": listing, "exists": listing_watchlst, "comments": comments, "bids": bids, "largest_bid": largest_bid, "min_bid": min_bid})
         #in listing make sure to filter through high to low, and atleast backed validation for bid is greater than highest bid
 
 @login_required(login_url='auctions/login.html')
@@ -143,9 +145,13 @@ def comment(request):
 
 def make_bid(request):
     if request.method == "POST":
-        bid = request.POST['bid']
-        owner = request.user
+        bid = float(request.POST['bid'])        
         listing_id = request.POST['listing_id']
+        largest_bid = Bid.objects.filter(listing=listing_id).order_by('-bid').first().bid
+        if bid < largest_bid:
+            raise PermissionDenied("Bid should be more than previous bids")
+        owner = request.user
+        
         listing = Listings.objects.get(pk=listing_id)
         new_bid = Bid(owner=owner, listing=listing, bid=bid)
         new_bid.save()
