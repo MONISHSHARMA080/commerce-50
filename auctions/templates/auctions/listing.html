@@ -55,6 +55,7 @@
 
 <!--addinfg form-->
 <br>
+ {% if listing.active == True %}   
 <div>
   <form action="{% url 'make_bid' %}" method="post">
     {% csrf_token %}
@@ -66,7 +67,9 @@
  </div>
 
 <br><br>
+{% endif %}
 
+    
   {% for bid in bids %}
   <div  style="border: 10px solid; border-color:rgb(74, 100, 14) ;background-color: black;">
     <div style="border-radius: 40px; padding: 14px;	background-color: rgb(38 41 48);">
