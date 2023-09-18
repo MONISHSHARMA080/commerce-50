@@ -22,6 +22,7 @@ class Listings(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE,  blank=False)
     price = models.ForeignKey("Bid", on_delete=models.CASCADE,  blank=True, null=True , default=40.00)
     watchlist = models.ManyToManyField(User,blank=True ,null=True, related_name="l_watchlist")
+    active = models.BooleanField(default=True, null=False,blank=False)
 
 
     def __str__(self):

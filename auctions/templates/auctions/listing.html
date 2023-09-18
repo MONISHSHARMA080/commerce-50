@@ -19,6 +19,18 @@
     <a href="{% url 'add_watchlist' listing.id %}" class="btn btn-primary" style="margin: 18px;">Add to watchlist</a>
 
    {% endif %}
+<!--closing listing(user is alread authenticated)-->
+    {% if request.user == listing.owner %}
+       <form action="{% url 'close' %}" method="post">
+        <input type="hidden" name="id" value="{{listing.id}}" >
+        <input class="btn btn-primary" type="submit" style="margin: 18px;" value="Close listing">
+        {% csrf_token %}
+       </form>
+    {% endif %}
+
+{% if listing.active == False  %}
+<h1>Closed</h1>
+{%  endif %}
 
 {% endif %}
 

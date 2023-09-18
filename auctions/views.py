@@ -158,3 +158,12 @@ def make_bid(request):
         return HttpResponseRedirect(reverse('listing', args=[listing.id]))
 
         #in listing make sure to filter through high to low, and atleast backed validation for bid is greater than highest bid
+
+
+def close(request):
+    if request.method == "POST":
+        listing_id = request.POST["id"]
+        listing = Listings.objects.get(pk=listing_id)
+        listing.active = False
+        listing.save()
+        return HttpResponseRedirect(reverse("listing" , args=[listing_id]))
