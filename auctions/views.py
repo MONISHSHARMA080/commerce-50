@@ -145,6 +145,8 @@ def comment(request):
 
 def make_bid(request):
     if request.method == "POST":
+        if listing.active == False:
+            raise PermissionDenied(" Sorry but bidding is closed !!!")
         bid = float(request.POST['bid'])        
         listing_id = request.POST['listing_id']
         largest_bid = Bid.objects.filter(listing=listing_id).order_by('-bid').first().bid
