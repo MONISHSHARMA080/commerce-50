@@ -49,25 +49,24 @@
 
 
 <!--tailwind component-->
- 
+{% if listing.active == True %}
 <div class=" display: flex;flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100px; background-color: lightblue; margin: 10px 0;">
   <h1 style="color: rgb(231, 20, 196);">Bids:</h1>
 
 <!--addinfg form-->
 <br>
- {% if listing.active == True %}   
+   
 <div>
   <form action="{% url 'make_bid' %}" method="post">
     {% csrf_token %}
     <label for="p"> Make your Bid: </label>
-    <input type="number" id="p" step="0.01" class="form-control" placeholder="Enter amount" aria-label="price" name="bid" min="{{ min_bid }}"> 
+    <input type="number" id="p" step="0.01" class="form-control" placeholder="Enter amount" aria-label="price" name="bid" min="{{ largest_bid.bid}}"> 
     <input type="hidden" name="listing_id" value="{{listing.id}}">  
     <button type="submit" class="btn btn-primary" style="margin: 10px;">Submit</button>
   </form>
  </div>
 
 <br><br>
-{% endif %}
 
     
   {% for bid in bids %}
@@ -80,9 +79,15 @@
 </div>
 
 
-{% endfor %}
+  {% endfor %}
 
+  {% else %}
 
+  <div style="background-color: rgba(255, 192, 203, 0.5); border-radius: 20px; padding: 20px; margin: 20px;">
+    <h1 style="font-size: 24px; font-weight: bold; color: #333;" >The bidding has won by  {{largest_bid.owner}} by making a bid of {{largest_bid.bid}}</h1>
+  </div>
+  
+  {% endif %}
 
 
 

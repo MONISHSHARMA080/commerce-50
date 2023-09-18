@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import User,Listings,Category,Comment,Bid
 from django.core.exceptions import PermissionDenied
-import android_palette
+#import android_palette
 
 
 
@@ -109,9 +109,8 @@ def listing(request, id):
     comments = Comment.objects.filter(product=listing)
     bids = Bid.objects.filter(listing=id).order_by('-bid')
     largest_bid = Bid.objects.filter(listing=id).order_by('-bid').first()
-    min_bid = largest_bid.bid 
-    return render(request, "auctions/listing.html", {"listing": listing, "exists": listing_watchlst, "comments": comments, "bids": bids, "largest_bid": largest_bid, "min_bid": min_bid})
-        #in listing make sure to filter through high to low, and atleast backed validation for bid is greater than highest bid
+    return render(request, "auctions/listing.html", {"listing": listing, "exists": listing_watchlst, "comments": comments, "bids": bids, "largest_bid": largest_bid})
+        
 
 @login_required(login_url='auctions/login.html')
 def watchlist(request):
@@ -169,6 +168,7 @@ def close(request):
         listing = Listings.objects.get(pk=listing_id)
         listing.active = False
         listing.save()
+        winner = Bid.objects.filter(listing=listing_id).order_by('-bid').first().owner
         return HttpResponseRedirect(reverse("listing" , args=[listing_id]))
 
 

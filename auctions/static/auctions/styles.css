@@ -1,3 +1,18 @@
 body {
     padding: 10px;
 }
+
+
+  .rounded-card {
+    background-color: rgba(255, 192, 203, 0.5); /* Pink tint */
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+  }
+
+  /* Additional styles for text inside the card */
+  .rounded-card h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Change text color as needed */
+  }
