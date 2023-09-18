@@ -3,7 +3,6 @@
 # git commit -am ""
 # git push origin main
 
-
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -12,6 +11,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import User,Listings,Category,Comment,Bid
 from django.core.exceptions import PermissionDenied
+import android_palette
+
 
 
 def index(request):
@@ -169,3 +170,18 @@ def close(request):
         listing.active = False
         listing.save()
         return HttpResponseRedirect(reverse("listing" , args=[listing_id]))
+
+
+
+def accent_colour(url):
+    # Load the wallpaper image from the url
+    wallpaper = android_palette.load_image_from_url(url)
+    
+    # Extract the dominant colors from the wallpaper
+    dominant_colors = wallpaper.get_dominant_colors()
+    
+    # Get the accent color
+    accent_color = dominant_colors[0]
+    
+    return accent_colour
+    
