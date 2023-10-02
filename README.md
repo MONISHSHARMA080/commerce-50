@@ -19,16 +19,6 @@ python manage.py migrate
 Start the Django web server: python manage.py runserver
 Visit the website in your browser(local host). You can now register for an account and explore the features of the application.
 
-### Understanding
-In this section, you'll find an overview of the project structure and key components.
-
-## URLs: URL configuration is defined in auctions/urls.py, including routes for login, logout, register, and more.
-
-## Views: Views associated with each route are defined in auctions/views.py. These views handle user registration, login, logout, and index rendering.
-
-## Templates: The HTML layout of the application is defined in auctions/templates/auctions/layout.html. It includes conditional rendering based on user authentication status.
-
-## Models: auctions/models.py is where you define models for your application, including User, auction listings, bids, comments, and categories. Remember to run makemigrations and migrate when you make changes to models.
 
 ## Specification
 To complete the implementation of your auction site, ensure that you fulfill the following requirements:
