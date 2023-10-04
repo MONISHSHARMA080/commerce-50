@@ -38,7 +38,7 @@ class Comment(models.Model):
 
 class Bid(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE )
-    bid = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True )
+    bid = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=50 )
     origin = models.DateTimeField(auto_now=True)
     listing = models.ForeignKey(Listings, on_delete=models.CASCADE, blank=True, null=True)
 

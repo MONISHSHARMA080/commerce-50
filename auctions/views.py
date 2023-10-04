@@ -142,19 +142,28 @@ def comment(request):
         C.save()
         return HttpResponseRedirect(reverse(listing, args=Id))
 
-
 def make_bid(request):
     if request.method == "POST":
-        if listing.active == False:
-            raise PermissionDenied(" Sorry but bidding is closed !!!")
         bid = float(request.POST['bid'])        
         listing_id = request.POST['listing_id']
-        largest_bid = Bid.objects.filter(listing=listing_id).order_by('-bid').first().bid
+        
+        # Check if there are any bids for the given listing
+        largest_bid_object = Bid.objects.filter(listing=listing_id).order_by('-bid').first()
+        
+        if largest_bid_object:
+            largest_bid = largest_bid_object.bid
+        else:
+            largest_bid = 0.00  # Set a default value if there are no bids
+        
         if bid < largest_bid:
             raise PermissionDenied("Bid should be more than previous bids")
-        owner = request.user
         
+        owner = request.user
         listing = Listings.objects.get(pk=listing_id)
+        
+        if not listing.active:
+            raise PermissionDenied("Sorry but bidding is closed !!!")
+        
         new_bid = Bid(owner=owner, listing=listing, bid=bid)
         new_bid.save()
         return HttpResponseRedirect(reverse('listing', args=[listing.id]))
