@@ -6,19 +6,6 @@ Commerce is an eBay-like e-commerce auction site that allows users to post aucti
 
 Commerce - eBay-like E-commerce Auction Site
 
-Getting Started
-Download the distribution code from here and unzip it.
-
-Open your terminal and navigate to the commerce directory.
-
-Run the following commands to set up your database:
-
-Copy code
-python manage.py makemigrations auctions
-python manage.py migrate
-Start the Django web server: python manage.py runserver
-Visit the website in your browser(local host). You can now register for an account and explore the features of the application.
-
 
 ## Specification
 To complete the implementation of your auction site, ensure that you fulfill the following requirements:
