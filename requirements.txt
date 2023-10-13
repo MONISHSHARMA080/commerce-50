@@ -5,6 +5,6 @@ Django==3.2.22
 filelock==3.0.0
 pipenv==2023.10.3
 pippip==0.0.10
-platformdirs== platformdirs==2.5.4
+platformdirs==platformdirs==2.5.4
 sqlparse==4.7.1
 virtualenv==20.24.5
