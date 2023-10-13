@@ -33,7 +33,7 @@
     
  {% elif request.path == "/" %}
  
-<div style="row">
+<div >
     {% for listing in listings %}
         <div class="card" style="width: 21rem; border: 6px purple solid; border-radius:24px; padding:14px; " >
             <picture style="border-radius:24px;">
@@ -44,7 +44,7 @@
                     <h4 class="card-title" style="padding:6px;" >{{listing.title}}</h4>
                     <p class="card-text" style="padding:6px;" >{{listing.description}}.</p>
                     
-                    <h6 style="padding:6px;" >{{listing.price}}</h6>                
+                    <h6 style="padding:6px;" >Starting price: ${{listing.price}}</h6>                
                     <a href="{% url 'listing' id=listing.id %}" class="btn btn-primary">Check out</a>
                 </div>
         </div>       

@@ -71,26 +71,42 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
+from django.core.exceptions import PermissionDenied
+from .models import User, Listings, Category, Comment, Bid
+
 @login_required(login_url='auctions/login.html')
 def new(request):
     if request.method == "GET":
         categories = Category.objects.all()
-        return render(request, "auctions/new.html" , {"categories":categories})
-    else:
-        #user posted to this route
+        return render(request, "auctions/new.html", {"categories": categories})
+    elif request.method == "POST":
+        # Extract data from the form
         name = request.POST["title"]
         description = request.POST["description"]
-        image_url = request.POST["image_url"]
+        image_url = request.POST.get("image_url", "")  # Using get to handle empty image_url
         price = request.POST["price"]
         category = request.POST["category"]
         category_of_listing = Category.objects.get(name=category)
         user = request.user
-        if not image_url:
-            listing = Listings( owner=user ,title=name , description=description ,price=price, category=category_of_listing)
-        else:
-            listing = Listings( owner=user  ,title=name , description=description ,imageUrl=image_url , price=price, category=category_of_listing)
+
+        # Create a new listing
+        listing = Listings(
+            owner=user,
+            title=name,
+            description=description,
+            imageUrl=image_url,
+            category=category_of_listing,
+            price=price  # Set the price directly from the form
+        )
         listing.save()
-        return HttpResponseRedirect(reverse("index"))         
+
+        # Create an initial bid for the listing
+        initial_bid = Bid(owner=user, bid=price, listing=listing)
+        initial_bid.save()
+
+        return HttpResponseRedirect(reverse("index"))
+
+     
 
 
 def category(request):

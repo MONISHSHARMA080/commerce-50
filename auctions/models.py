@@ -20,7 +20,7 @@ class Listings(models.Model):
     imageUrl = models.URLField(blank=True , null=True)
     date_created = models.DateField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,  blank=False)
-    price = models.ForeignKey("Bid", on_delete=models.CASCADE,  blank=True, null=True , default=40.00)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     watchlist = models.ManyToManyField(User,blank=True ,null=True, related_name="l_watchlist")
     active = models.BooleanField(default=True, null=False,blank=False)
 
