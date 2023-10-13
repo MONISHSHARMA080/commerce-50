@@ -16,7 +16,7 @@ from django.core.exceptions import PermissionDenied
 
 
 def index(request):
-    listings = Listings.objects.all()
+    listings = Listings.objects.filter(active=True)
     return render(request, "auctions/index.html", {"listings":listings})
 
 
@@ -71,8 +71,6 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-from django.core.exceptions import PermissionDenied
-from .models import User, Listings, Category, Comment, Bid
 
 @login_required(login_url='auctions/login.html')
 def new(request):
@@ -150,12 +148,15 @@ def removeWatchlist(request, id):
 
 def comment(request):
     if request.method == "POST":
-        comment = request.POST['comment']
-        Id = request.POST['id']
-        product = Listings.objects.get(pk=Id)
-        author = request.user
-        C = Comment(author=author, product=product , comment=comment)
-        C.save()
+        #backend validation
+        if request.user.is_authenticated:
+            comment = request.POST['comment']
+            Id = request.POST['id']
+            product = Listings.objects.get(pk=Id)
+            author = request.user
+            C = Comment(author=author, product=product , comment=comment)
+            C.save()
+        return HttpResponseRedirect(reverse(login_view))
         return HttpResponseRedirect(reverse(listing, args=Id))
 
 def make_bid(request):
