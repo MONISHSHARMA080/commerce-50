@@ -8,3 +8,9 @@ pippip==0.0.10
 platformdirs==2.5.4
 sqlparse==0.4.4
 virtualenv==20.24.5
+typing-extensions>=4; python_version < "3.11"
+pytz
+setuptools
+importlib-metadata>=6.6; python_version < "3.8"
+zipp>=0.5
+gunicorn
