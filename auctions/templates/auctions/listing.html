@@ -110,7 +110,7 @@
 
  <div class="form-outline mb-4">
   <!--comments add-->
-  {% if request.user is authenticated %}
+  {% if  request.user.is_authenticated %}
    <form action="{% url 'add_comment' %}" method="post">
       {% csrf_token %} 
       <input name="comment"  type="text"  class="form-control" placeholder="Comment..." />
