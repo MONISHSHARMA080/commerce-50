@@ -159,6 +159,7 @@ def comment(request):
         return HttpResponseRedirect(reverse(login_view))
         return HttpResponseRedirect(reverse(listing, args=Id))
 
+@login_required
 def make_bid(request):
     if request.method == "POST":
         bid = float(request.POST['bid'])        
