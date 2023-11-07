@@ -59,16 +59,20 @@
 
 <!--addinfg form-->
 <br>
-   
+     <!--Make a bid -->
+  {% if  request.user.is_authenticated %}
 <div>
   <form action="{% url 'make_bid' %}" method="post">
     {% csrf_token %}
-    <label for="p"> Make your Bid: </label>
+    <label for="p"> 
+       <h3>    Make your Bid:  </h3>
+    </label>
     <input type="number" id="p" step="0.01" class="form-control" placeholder="Enter amount" aria-label="price" name="bid" min="{{ largest_bid.bid}}"> 
     <input type="hidden" name="listing_id" value="{{listing.id}}">  
     <button type="submit" class="btn btn-primary" style="margin: 10px;">Submit</button>
   </form>
  </div>
+    {% endif %}
 
 <br><br>
 
