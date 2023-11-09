@@ -34,11 +34,12 @@
  {% elif request.path == "/" %}
  
 <div >
+  <div style="display: flex;">
     {% for listing in listings %}
-        <div class="card" style="width: 21rem; border: 6px purple solid; border-radius:24px; padding:14px; " >
-            <picture style="border-radius:24px;">
-                <img src="{{listing.imageUrl}}" class="img-fluid >
-            </picture>
+        <div class="card" style="width: 21rem; border: 6px purple solid; border-radius:24px; padding:14px; margin: 15px; " >
+            
+                <img src="{{listing.imageUrl}}" class="img-fluid m-2 " style="border-radius:24px" >
+            
             
                 <div class="card-body" style="margin:6px;" >
                     <h4 class="card-title" style="padding:6px;" >{{listing.title}}</h4>
@@ -49,6 +50,8 @@
                 </div>
         </div>       
         {% endfor %}
+
+  </div>      
 </div>        
 {% endif %}
 {% endblock %}

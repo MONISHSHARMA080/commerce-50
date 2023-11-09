@@ -16,7 +16,7 @@ from django.core.exceptions import PermissionDenied
 
 
 def index(request):
-    listings = Listings.objects.filter(active=True)
+    listings = Listings.objects.filter(active=True).order_by('-date_created')
     return render(request, "auctions/index.html", {"listings":listings})
 
 
