@@ -11,7 +11,6 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import User,Listings,Category,Comment,Bid
 from django.core.exceptions import PermissionDenied
-#import android_palette
 
 
 
@@ -146,6 +145,7 @@ def removeWatchlist(request, id):
      listing.watchlist.remove(user)
      return HttpResponseRedirect(reverse(watchlist))
 
+@login_required(login_url='auctions/login.html')
 def comment(request):
     if request.method == "POST":
         #backend validation
@@ -156,8 +156,8 @@ def comment(request):
             author = request.user
             C = Comment(author=author, product=product , comment=comment)
             C.save()
+            return HttpResponseRedirect(reverse(listing, args=Id))
         return HttpResponseRedirect(reverse(login_view))
-        return HttpResponseRedirect(reverse(listing, args=Id))
 
 @login_required
 def make_bid(request):
